@@ -1,0 +1,54 @@
+class Node {
+    constructor(data, left = null, right = null) {
+        this.data = data
+        this.left = left
+        this.right = right
+    }
+}
+
+class Tree {
+    constructor(items) {
+        this.items = Array.from(new Set(items)).sort((a, b) => a - b)
+        console.log(this.items)
+        this.root = this.buildTree(this.items, 0, this.items.length - 1)
+    }
+
+    buildTree(items, start, end) {
+        if (start > end) return null
+        const mid = Math.floor((start + end) / 2)
+        const root = new Node(items[mid])
+
+        root.left = this.buildTree(items, start, mid - 1)
+        root.right = this.buildTree(items, mid + 1, end)
+
+        return root
+    }
+
+    prettyPrint(node, prefix = '', isLeft = true) {
+        if (node === null) {
+            return;
+        }
+        if (node.right !== null) {
+            this.prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
+        }
+        console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
+        if (node.left !== null) {
+            this.prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
+        }
+    };
+
+    insert(root, value) {
+        if (root === null) {
+            return new Node(value)
+        }
+        if (value < root.data) {
+            root.left = this.insert(root.left, value)
+        } else {
+            root.right = this.insert(root.right, value)
+        }
+        return root
+    }
+}
+
+
+export { Tree }
