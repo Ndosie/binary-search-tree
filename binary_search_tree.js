@@ -48,6 +48,31 @@ class Tree {
         }
         return root
     }
+
+    delete(root, value) {
+        if (root.data === value) {
+            if (root.left === null && root.right === null){
+                root = null
+            } else if (root.left && root.right) {
+                let leftNode = root.right.left
+                while (leftNode.left) {
+                    leftNode = leftNode.left
+                }
+                root.data = leftNode.data
+                root.right = this.delete(root.right, leftNode.data)
+            } else {
+                root = root.left ? root.left : root.right
+            }
+            return root
+        }
+
+        if (value < root.data) {
+            root.left = this.delete(root.left, value)
+        } else {
+            root.right = this.delete(root.right, value)
+        }
+        return root
+    }
 }
 
 
