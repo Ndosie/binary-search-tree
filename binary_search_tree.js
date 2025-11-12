@@ -89,6 +89,47 @@ class Tree {
         }
         return found ? found : "Not found"
     }
+
+    levelOrderForEach(root, callback) {
+        if (typeof callback !== 'function') throw new Error('Callback function is required!')
+        
+        if (!root) return
+
+        const queue = [root]
+        while (queue.length) {
+            const n = queue.shift()
+            callback(n.data)
+            if (n.left) queue.push(n.left)
+            if (n.right) queue.push(n.right)
+        }
+    }
+
+    inOrderForEach(root, callback) {
+        if (typeof callback !== 'function') throw new Error('Callback function is required!')
+
+        if (!root) return
+        this.inOrderForEach(root.left, callback)
+        callback(root.data)
+        this.inOrderForEach(root.right, callback)
+    }
+
+    preOrderForEach(root, callback) {
+        if (typeof callback !== 'function') throw new Error('Callback function is required!')
+
+        if (!root) return
+        callback(root.data)
+        this.preOrderForEach(root.left, callback)
+        this.preOrderForEach(root.right, callback)
+    }
+
+    postOrderForEach(root, callback) {
+        if (typeof callback !== 'function') throw new Error('Callback function is required!')
+        
+        if (!root) return
+        this.postOrderForEach(root.left, callback)
+        this.postOrderForEach(root.right, callback)
+        callback(root.data)
+    }
 }
 
 
