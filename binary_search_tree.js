@@ -130,6 +130,22 @@ class Tree {
         this.postOrderForEach(root.right, callback)
         callback(root.data)
     }
+
+    depth(value) {
+        let count = -1
+        
+        let node = this.root
+        while (node) {
+            count++
+            if (value === node.data) return count
+            if (value < node.data) {
+                node = node.left
+            } else {
+                node = node.right
+            }
+        }
+        return null
+    }
 }
 
 
