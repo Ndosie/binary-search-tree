@@ -146,6 +146,51 @@ class Tree {
         }
         return null
     }
+
+    findHeight(root){
+        if (!root) return -1
+
+        const left_height = 1 + this.findHeight(root.left)
+        const right_height = 1 + this.findHeight(root.right)
+        return Math.max(left_height, right_height)
+    }
+
+    height(value) {
+        let node = this.root
+
+        while (node) {
+            if (value === node.data) return this.findHeight(node)
+
+            if (value < node.data) {
+                node = node.left
+            } else {
+                node = node.right
+            }
+        }
+        return null
+    }
+
+    isBalanced(root) {
+        const left_height = this.findHeight(root.left)
+        const right_height = this.findHeight(root.right)
+        if (right_height - left_height > 1 || right_height - left_height < -1) {
+            return false
+        }
+
+        if (root.right) this.isBalanced(root.right)
+        
+        if (root.left) this.isBalanced(root.left)
+
+        return true
+    }
+     
+    rebalance() {
+        const sorted_nums = []
+        this.inOrderForEach(this.root, function(data) {
+            sorted_nums.push(data)
+        })
+        this.root = this.buildTree(sorted_nums, 0, sorted_nums.length - 1)
+    }
 }
 
 

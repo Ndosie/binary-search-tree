@@ -1,24 +1,49 @@
 import { Tree } from "./binary_search_tree.js";
 
-const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
+const nums = []
+
+for (let i = 1; i <= 15; i++) {
+    nums.push(Math.floor(Math.random() * 101))
+}
+
+const tree = new Tree(nums)
 
 tree.prettyPrint(tree.root)
-tree.insert(tree.root, 20)
-tree.prettyPrint(tree.root)
-tree.delete(tree.root, 20)
-tree.prettyPrint(tree.root)
-tree.delete(tree.root, 5)
-tree.prettyPrint(tree.root)
-tree.insert(tree.root, 100)
+console.log(tree.isBalanced(tree.root))
+let traversal = []
+tree.levelOrderForEach(tree.root, (data) => traversal.push(data))
+console.log(traversal)
+traversal = []
+tree.inOrderForEach(tree.root, (data) => traversal.push(data))
+console.log(traversal)
+traversal = []
+tree.preOrderForEach(tree.root, (data) => traversal.push(data))
+console.log(traversal)
+traversal = []
+tree.postOrderForEach(tree.root, (data) => traversal.push(data))
+console.log(traversal)
+traversal = []
+
+tree.insert(tree.root, 110)
+tree.insert(tree.root, 105)
 tree.insert(tree.root, 150)
+tree.insert(tree.root, 200)
 tree.prettyPrint(tree.root)
-tree.delete(tree.root, 67)
+
+console.log(tree.isBalanced(tree.root))
+tree.rebalance()
+console.log(tree.isBalanced(tree.root))
 tree.prettyPrint(tree.root)
-console.log(tree.find(tree.root, 150))
-tree.levelOrderForEach(tree.root, (data) => console.log(data))
-tree.inOrderForEach(tree.root, (data) => console.log(data))
-tree.preOrderForEach(tree.root, (data) => console.log(data))
-tree.postOrderForEach(tree.root, (data) => console.log(data))
-console.log(tree.depth(8))
-console.log(tree.depth(23))
-console.log(tree.depth(50))
+
+tree.levelOrderForEach(tree.root, (data) => traversal.push(data))
+console.log(traversal)
+traversal = []
+tree.inOrderForEach(tree.root, (data) => traversal.push(data))
+console.log(traversal)
+traversal = []
+tree.preOrderForEach(tree.root, (data) => traversal.push(data))
+console.log(traversal)
+traversal = []
+tree.postOrderForEach(tree.root, (data) => traversal.push(data))
+console.log(traversal)
+traversal = []
